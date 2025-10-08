@@ -1,4 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
+import * as nodemailer from 'nodemailer';
+
 import { generatePasswordResetEmail } from 'lib/emailForgotPassword';
 import { generateNewOrderNotificationEmail } from 'lib/emailNewOrderNotification';
 import { generatePurchaseConfirmationEmail } from 'lib/emailOrderPayment';
@@ -8,98 +10,60 @@ import {
   generatePhotographerWelcomeEmail,
 } from 'lib/emailWelcome';
 
-import { Resend } from 'resend';
-
 @Injectable()
 export class MailService {
-  private readonly resend: Resend;
+  private readonly transporter;
   private readonly logger = new Logger(MailService.name);
 
   constructor() {
-    this.resend = new Resend(process.env.RESEND_API_KEY);
+    this.transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST, // c1320274.ferozo.com
+      port: Number(process.env.SMTP_PORT) || 465,
+      secure: true, // SSL
+      auth: {
+        user: process.env.SMTP_USER, // desarrollo@fotonube.com
+        pass: process.env.SMTP_PASS, // dEmo25*Nube
+      },
+      tls: { rejectUnauthorized: false },
+    });
+  }
+
+  private async sendMail(to: string, subject: string, html: string) {
+    try {
+      const info = await this.transporter.sendMail({
+        from: `"FotoNube" <${process.env.SMTP_USER}>`,
+        to,
+        subject,
+        html,
+      });
+      this.logger.log(`✅ Email enviado a ${to}: ${info.messageId}`);
+    } catch (error) {
+      this.logger.error(`❌ Error al enviar correo a ${to}`, error);
+    }
   }
 
   async sendWelcomeEmail(to: string, role: string) {
     let htmlContent;
 
-    // Se determina qué template usar según el rol
-    if (role === 'photographer') {
+    if (role === 'photographer')
       htmlContent = generatePhotographerWelcomeEmail();
-    } else if (role === 'buyer') {
-      htmlContent = generateBuyerWelcomeEmail();
-    } else {
-      // Manejar un caso por defecto o lanzar un error
-      this.logger.warn(
-        `Rol desconocido: ${role}. No se enviará email de bienvenida.`,
-      );
+    else if (role === 'buyer') htmlContent = generateBuyerWelcomeEmail();
+    else {
+      this.logger.warn(`Rol desconocido: ${role}`);
       return;
     }
 
-    try {
-      const { data, error } = await this.resend.emails.send({
-        from: 'FotoNube <onboarding@resend.dev>',
-        to,
-        subject: '¡Bienvenido a FotoNube!',
-        html: htmlContent,
-      });
-
-      if (error) {
-        this.logger.error(`Error al enviar email a ${to}`, error);
-      } else {
-        this.logger.log(`Email de bienvenida enviado a ${to} (Rol: ${role})`);
-      }
-    } catch (err) {
-      this.logger.error('Error al enviar correo', err);
-    }
+    await this.sendMail(to, '¡Bienvenido a FotoNube!', htmlContent);
   }
 
   async sendPasswordResetEmail(to: string, resetLink: string) {
     const htmlContent = generatePasswordResetEmail({ resetLink });
-
-    try {
-      const { data, error } = await this.resend.emails.send({
-        from: 'FotoNube <onboarding@resend.dev>',
-        to,
-        subject: 'Recupera tu contraseña en FotoNube',
-        html: htmlContent,
-      });
-
-      if (error) {
-        this.logger.error(
-          `Error al enviar email de recuperación a ${to}`,
-          error,
-        );
-      } else {
-        this.logger.log(`Email de recuperación enviado a ${to}`);
-      }
-    } catch (err) {
-      this.logger.error('Error al enviar correo de recuperación', err);
-    }
+    await this.sendMail(to, 'Recupera tu contraseña en FotoNube', htmlContent);
   }
 
   async sendProWelcomeEmail(to: string, name?: string) {
-    // Generamos el contenido HTML usando el template de Pro
     const htmlContent = generateProWelcomeEmail({ name });
-
-    try {
-      const { data, error } = await this.resend.emails.send({
-        from: 'FotoNube <onboarding@resend.dev>',
-        to,
-        subject: '¡Bienvenido a FotoNube Pro!',
-        html: htmlContent,
-      });
-
-      if (error) {
-        this.logger.error(
-          `Error al enviar email de bienvenida Pro a ${to}`,
-          error,
-        );
-      } else {
-        this.logger.log(`Email de bienvenida Pro enviado a ${to}`);
-      }
-    } catch (err) {
-      this.logger.error('Error al enviar correo de bienvenida Pro', err);
-    }
+    await this.sendMail(to, '¡Bienvenido a FotoNube Pro!', htmlContent);
   }
 
   async sendOrderPaymentEmail(
@@ -113,26 +77,13 @@ export class MailService {
       total,
       itemCount,
     );
-
-    try {
-      const { data, error } = await this.resend.emails.send({
-        from: 'FotoNube <onboarding@resend.dev>',
-        to,
-        subject: 'Confirmación de tu compra en FotoNube',
-        html: htmlContent,
-      });
-
-      if (error) {
-        this.logger.error(`Error al enviar email de orden a ${to}`, error);
-      } else {
-        this.logger.log(`Email de confirmación de orden enviado a ${to}`);
-      }
-    } catch (err) {
-      this.logger.error('Error al enviar correo de confirmación de orden', err);
-    }
+    await this.sendMail(
+      to,
+      'Confirmación de tu compra en FotoNube',
+      htmlContent,
+    );
   }
 
-  // 📩 Email para el fotógrafo al recibir un nuevo pedido
   async sendNewOrderNotification(
     photographerEmail: string,
     orderId: string,
@@ -146,18 +97,10 @@ export class MailService {
       itemCount,
       buyerName,
     );
-
-    try {
-      await this.resend.emails.send({
-        from: 'FotoNube <onboarding@resend.dev>',
-        to: photographerEmail,
-        subject: '¡Nuevo pedido recibido en FotoNube!',
-        html: htmlContent,
-      });
-
-      this.logger.log(`Email de nuevo pedido enviado a ${photographerEmail}`);
-    } catch (err) {
-      this.logger.error('Error al enviar correo de nuevo pedido', err);
-    }
+    await this.sendMail(
+      photographerEmail,
+      '¡Nuevo pedido recibido en FotoNube!',
+      htmlContent,
+    );
   }
 }

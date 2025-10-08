@@ -36,7 +36,7 @@ export class PhotoController {
   @UseGuards(AuthGuard)
   @Post('upload-multiple/:albumId')
   @UseInterceptors(
-    FilesInterceptor('files', 20, { limits: { fileSize: 15 * 1024 * 1024 } }),
+    FilesInterceptor('files', 20, { limits: { fileSize: 5 * 1024 * 1024 } }),
   )
   async uploadMultiple(
     @UploadedFiles() files: Express.Multer.File[],
