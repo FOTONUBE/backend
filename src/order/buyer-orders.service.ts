@@ -189,7 +189,7 @@ export class BuyerOrdersService {
       payment_methods: {
         excluded_payment_types: [{ id: 'ticket' }, { id: 'atm' }],
       },
-      sponsor_id: photographerAccount.providerUserId,
+      sponsor_id: Number(photographerAccount.providerUserId),
       notification_url: `https://backend-4bkl.onrender.com/api/mercadopago/webhook`,
       external_reference: `buyerOrder-${order.id}`,
     };
