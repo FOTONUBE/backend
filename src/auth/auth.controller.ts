@@ -34,18 +34,11 @@ export class AuthController {
     return { response: login, message: 'Login exitoso' };
   }
 
-  /*   @Post('request-password-reset')
-  async requestPasswordReset(@Body('email') email: string) {
-    return this.authService.requestPasswordReset(email);
+  @Post('refresh-token')
+  async refreshToken(@Body('token') token: string) {
+    const refreshed = await this.authService.refreshToken(token);
+    return { response: refreshed, message: 'Token renovado correctamente' };
   }
-
-  @Post('reset-password')
-  async resetPassword(
-    @Body('token') token: string,
-    @Body('newPassword') newPassword: string,
-  ) {
-    return this.authService.resetPassword(token, newPassword);
-  } */
 
   @Post('request-password-reset')
   async requestPasswordReset(@Body('email') email: string) {
