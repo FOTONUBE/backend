@@ -190,7 +190,7 @@ export class BuyerOrdersService {
         excluded_payment_types: [{ id: 'ticket' }, { id: 'atm' }],
       },
       sponsor_id: photographerAccount.providerUserId,
-      notification_url: `https://nest-fotonube.onrender.com/api/mercadopago/webhook`,
+      notification_url: `https://backend-4bkl.onrender.com/api/mercadopago/webhook`,
       external_reference: `buyerOrder-${order.id}`,
     };
 
