@@ -25,6 +25,8 @@ import { SeedModule } from './seed/seed.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.POSTGRES_URL,
+      retryAttempts: 10,
+      retryDelay: 3000, // 3 segundos entre intentos
       ssl:
         process.env.NODE_ENV === 'production'
           ? { rejectUnauthorized: false }
