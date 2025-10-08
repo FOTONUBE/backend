@@ -8,11 +8,11 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { PasswordResetToken } from 'src/auth/entities/password-reset-token.entity';
+import { PaymentAccount } from 'src/payment/entities/payment.entity';
 import { Subscription } from 'src/subscription/entities/subscription.entity';
 import { Album } from '../../album/entities/album.entity';
 import { Order } from '../../order/entities/order.entity';
-import { PaymentAccount } from 'src/payment/entities/payment.entity';
-import { PasswordResetToken } from 'src/auth/entities/password-reset-token.entity';
 
 @Entity()
 export class User {

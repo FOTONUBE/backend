@@ -140,7 +140,6 @@ export class BuyerOrdersService {
   }
 
   async createPaymentPreference(orderId: string) {
-    // 1️⃣ Obtener la orden con álbum y fotógrafo
     const order = await this.orderRepository.findOne({
       where: { id: orderId },
       relations: ['album', 'album.photographer', 'items'],
@@ -160,22 +159,25 @@ export class BuyerOrdersService {
       );
     }
 
-    // 2️⃣ Obtener el providerUserId de tu cuenta de marketplace
-    const marketplaceProviderUserId = 2692831712; // <--- Reemplaza con tu providerUserId
-
-    // 3️⃣ Preparar items para la preferencia
     const items = order.items.map((i) => ({
       title: `Foto - ${i.size}`,
-      picture_url: i.photoUrl, // opcional, MercadoPago soporta esto
+      picture_url: i.photoUrl,
       quantity: i.quantity,
       unit_price: Number(i.unitPrice),
       currency_id: 'ARS',
     }));
 
-    // 4️⃣ Calcular comisión del marketplace
-    const marketplaceFee = Number((order.total * 0.1).toFixed(2)); // 10% de comisión
+    const total = order.total;
+    const marketplaceFee = Number((total * 0.1).toFixed(2));
+    if (marketplaceFee > total) {
+      console.error(
+        'marketplaceFee is greater than total!',
+        marketplaceFee,
+        total,
+      );
+      throw new BadRequestException('Comisión del marketplace excesiva');
+    }
 
-    // 5️⃣ Crear payload de preferencia con sponsor_id
     const preferencePayload = {
       items,
       payer: { email: order.buyer.email },
@@ -187,27 +189,40 @@ export class BuyerOrdersService {
       payment_methods: {
         excluded_payment_types: [{ id: 'ticket' }, { id: 'atm' }],
       },
-      // ⚡️ Añade el sponsor_id de tu marketplace aquí
-      sponsor_id: marketplaceProviderUserId,
-      notification_url:
-        'https://nest-fotonube.onrender.com/api/mercadopago/webhook',
+      sponsor_id: photographerAccount.providerUserId,
+      notification_url: `https://nest-fotonube.onrender.com/api/mercadopago/webhook`,
       external_reference: `buyerOrder-${order.id}`,
     };
 
-    // 6️⃣ Crear preferencia usando el token del vendedor
-    const { data } = await axios.post(
-      'https://api.mercadopago.com/checkout/preferences',
-      preferencePayload,
-      {
-        headers: {
-          Authorization: `Bearer ${photographerAccount.accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      },
+    console.log(
+      '⚙ Preference Payload:',
+      JSON.stringify(preferencePayload, null, 2),
+    );
+    console.log(
+      '📦 Access Token del vendedor:',
+      photographerAccount.accessToken,
     );
 
-    // 7️⃣ Devolver URL de redirección
-    return { init_point: data.init_point };
+    try {
+      const { data } = await axios.post(
+        'https://api.mercadopago.com/checkout/preferences',
+        preferencePayload,
+        {
+          headers: {
+            Authorization: `Bearer ${photographerAccount.accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      console.log('✅ Preferencia creada:', data);
+      return { init_point: data.init_point, preferenceId: data.id };
+    } catch (err: any) {
+      console.error(
+        '❌ Error al crear preferencia:',
+        err.response?.data || err.message,
+      );
+      throw new BadRequestException('Error al crear preferencia MercadoPago');
+    }
   }
 
   async updateOrderStatus(
