@@ -178,7 +178,8 @@ export class BuyerOrdersService {
       throw new BadRequestException('Comisión del marketplace excesiva');
     }
 
-    const marketplaceProviderUserId = 2692831712; // <--- Reemplaza con tu providerUserId
+    // const marketplaceProviderUserId = 2692831712; // <--- Desarrollo
+    const marketplaceProviderUserId = 79024428; // <--- ProviderUserId
 
     const preferencePayload = {
       items,
@@ -193,6 +194,7 @@ export class BuyerOrdersService {
       },
       sponsor_id: marketplaceProviderUserId,
       notification_url: `https://backend-4bkl.onrender.com/api/mercadopago/webhook`,
+      // notification_url: `https://nest-fotonube.onrender.com/api/mercadopago/webhook`,
       external_reference: `buyerOrder-${order.id}`,
     };
 
