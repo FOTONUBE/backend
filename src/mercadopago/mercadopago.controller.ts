@@ -13,17 +13,28 @@ export class MercadopagoController {
     @Headers('x-signature') signature: string,
     @Headers('x-request-id') requestId: string,
   ) {
-    // ⚡ req.body es un Buffer puro
-    const rawBody = req.body.toString('utf-8');
-    const parsedBody = JSON.parse(rawBody);
+    try {
+      // Si no hay body o viene vacío, MercadoPago solo está validando la URL
+      if (!req.body || (Buffer.isBuffer(req.body) && req.body.length === 0)) {
+        console.log('📡 MercadoPago hizo una verificación del webhook (ping)');
+        return res.status(200).send('Webhook verificado correctamente');
+      }
 
-    res.status(200).send('OK');
+      // Si viene con contenido, procesamos normalmente
+      const rawBody = req.body.toString('utf-8');
+      const parsedBody = JSON.parse(rawBody);
 
-    await this.mercadopagoService.processNotification(
-      rawBody,
-      parsedBody,
-      signature,
-      requestId,
-    );
+      res.status(200).send('OK');
+
+      await this.mercadopagoService.processNotification(
+        rawBody,
+        parsedBody,
+        signature,
+        requestId,
+      );
+    } catch (error) {
+      console.error('Error en webhook MercadoPago:', error);
+      res.status(200).send('OK'); // Evitar reintentos infinitos
+    }
   }
 }
