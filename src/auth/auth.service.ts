@@ -146,7 +146,14 @@ export class AuthService {
   // Generar JWT
   // ======================
   private generateToken(user: any) {
-    const payload = { sub: user.id, role: user.role };
+    const payload = {
+      sub: user.id,
+      role: user.role,
+      name: user.name || null,
+      phone: user.phone || null,
+      paymentAccounts: user.paymentAccounts || [],
+    };
+
     return {
       access_token: this.jwtService.sign(payload),
       user: {

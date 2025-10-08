@@ -13,57 +13,58 @@ export class UserService {
   ) {}
 
   async findByEmail(email: string) {
-    return this.userRepo.findOne({ where: { email } });
+    const user = await this.userRepo.findOne({
+      where: { email },
+      relations: ['paymentAccounts', 'orders', 'accessibleAlbums'],
+    });
+
+    if (!user) return null;
+
+    return user;
   }
 
   async findById(id: string) {
-    try {
-      const user = await this.userRepo.findOne({
-        where: { id },
-        relations: [
-          'orders',
-          'accessibleAlbums',
-          'accessibleAlbums.photos',
-          'paymentAccounts',
-        ],
-      });
+    const user = await this.userRepo.findOne({
+      where: { id },
+      relations: [
+        'orders',
+        'accessibleAlbums',
+        'accessibleAlbums.photos',
+        'paymentAccounts',
+      ],
+    });
 
-      if (!user) {
-        throw new NotFoundException(`Usuario con id ${id} no encontrado`);
-      }
-
-      const plainUser: any = user;
-
-      delete plainUser.password;
-      delete plainUser.provider;
-      delete plainUser.passwordResetRequestedAt;
-      delete plainUser.createdAt;
-      delete plainUser.updatedAt;
-
-      plainUser.accessibleAlbums = plainUser.accessibleAlbums.map(
-        (album: any) => ({
-          id: album.id,
-          title: album.title,
-          description: album.description,
-          prices: album.prices,
-          priceDigital: album.priceDigital,
-          priceSchoolSports: album.priceSchoolSports,
-          eventDate: album.eventDate,
-          storageUsedMb: album.storageUsedMb,
-          photos: album.photos.map((photo: any) => ({
-            id: photo.id,
-            url: photo.url,
-            name: photo.name,
-            // otros campos que quieras exponer
-          })),
-        }),
-      );
-
-      return plainUser;
-    } catch (error) {
-      console.error('Error fetching user by ID:', error);
-      throw new Error('Error fetching user');
+    if (!user) {
+      throw new NotFoundException(`Usuario con id ${id} no encontrado`);
     }
+
+    const plainUser: any = user;
+
+    delete plainUser.password;
+    delete plainUser.provider;
+    delete plainUser.passwordResetRequestedAt;
+    delete plainUser.createdAt;
+    delete plainUser.updatedAt;
+
+    plainUser.accessibleAlbums = plainUser.accessibleAlbums.map(
+      (album: any) => ({
+        id: album.id,
+        title: album.title,
+        description: album.description,
+        prices: album.prices,
+        priceDigital: album.priceDigital,
+        priceSchoolSports: album.priceSchoolSports,
+        eventDate: album.eventDate,
+        storageUsedMb: album.storageUsedMb,
+        photos: album.photos.map((photo: any) => ({
+          id: photo.id,
+          url: photo.url,
+          name: photo.name,
+        })),
+      }),
+    );
+
+    return plainUser;
   }
 
   async create(data: Partial<User>) {
