@@ -16,9 +16,11 @@ import { Photo } from 'src/photo/entities/photo.entity';
 import { PaymentService } from 'src/payment/payment.service';
 import axios from 'axios';
 import { MailService } from 'src/mail/mail.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class BuyerOrdersService {
+  private readonly mercadoPagoProviderUserId: number;
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -34,7 +36,12 @@ export class BuyerOrdersService {
 
     private readonly paymentService: PaymentService,
     private readonly mailService: MailService,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    this.mercadoPagoProviderUserId = Number(
+      this.configService.get<string>('MERCADOPAGO_PROVIDER_USER_ID'),
+    );
+  }
 
   async createOrder(
     dto: CreateOrderDto,
@@ -178,8 +185,7 @@ export class BuyerOrdersService {
       throw new BadRequestException('Comisión del marketplace excesiva');
     }
 
-    // const marketplaceProviderUserId = 2692831712; // <--- Desarrollo
-    const marketplaceProviderUserId = 79024428; // <--- ProviderUserId
+    const marketplaceProviderUserId = this.mercadoPagoProviderUserId;
 
     const preferencePayload = {
       items,
@@ -193,8 +199,7 @@ export class BuyerOrdersService {
         excluded_payment_types: [{ id: 'ticket' }, { id: 'atm' }],
       },
       sponsor_id: marketplaceProviderUserId,
-      notification_url: `https://backend-4bkl.onrender.com/api/mercadopago/webhook`,
-      // notification_url: `https://nest-fotonube.onrender.com/api/mercadopago/webhook`,
+      notification_url: `${process.env.BACKEND_URL}/mercadopago/webhook`,
       external_reference: `buyerOrder-${order.id}`,
     };
 
@@ -218,7 +223,9 @@ export class BuyerOrdersService {
           },
         },
       );
-      console.log('✅ Preferencia creada:', data);
+
+      // console.log('✅ Preferencia creada:', data);
+
       return { init_point: data.init_point, preferenceId: data.id };
     } catch (err: any) {
       console.error(

@@ -1,10 +1,20 @@
-import { Body, Controller, Post, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { Response } from 'express';
 import { PasswordResetService } from './password-reset.service';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -32,12 +42,6 @@ export class AuthController {
 
     // Retornamos algo (puede ser info del usuario o mensaje)
     return { response: login, message: 'Login exitoso' };
-  }
-
-  @Post('refresh-token')
-  async refreshToken(@Body('token') token: string) {
-    const refreshed = await this.authService.refreshToken(token);
-    return { response: refreshed, message: 'Token renovado correctamente' };
   }
 
   @Post('request-password-reset')

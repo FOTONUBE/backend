@@ -130,8 +130,7 @@ export class SubscriptionService {
         success: `${process.env.FRONTEND_URL}/dashboard/subscription/success`,
         failure: `${process.env.FRONTEND_URL}/dashboard/subscription/failure`,
       },
-      notification_url:
-        'https://nest-fotonube.onrender.com/api/mercadopago/webhook',
+      notification_url: `${process.env.BACKEND_URL}/mercadopago/webhook`,
 
       external_reference: `subscription-${order.id}`,
     };

@@ -142,21 +142,6 @@ export class AuthService {
     }
   }
 
-  async refreshToken(currentToken: string) {
-    try {
-      // Verificamos el token recibido
-      const payload: any = this.jwtService.verify(currentToken);
-
-      // Buscamos al usuario en DB
-      const user = await this.userService.findById(payload.sub);
-      if (!user) throw new NotFoundException('Usuario no encontrado');
-
-      return this.generateToken(user);
-    } catch (error) {
-      throw new BadRequestException('Token inválido o expirado');
-    }
-  }
-
   // ======================
   // Generar JWT
   // ======================
