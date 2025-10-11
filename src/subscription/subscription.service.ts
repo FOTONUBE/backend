@@ -136,18 +136,25 @@ export class SubscriptionService {
     };
 
     // 3️⃣ Crear preferencia en MercadoPago con tu access token
-    const { data } = await axios.post(
-      'https://api.mercadopago.com/checkout/preferences',
-      preferencePayload,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.MP_MARKETPLACE_ACCESS_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
+   try {
+  const { data } = await axios.post(
+    'https://api.mercadopago.com/checkout/preferences',
+    preferencePayload,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.MP_MARKETPLACE_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
       },
-    );
+    },
+  );
 
-    return { init_point: data.init_point, preferenceId: data.id };
+  console.log('✅ Preference creada:', data);
+  return { init_point: data.init_point, preferenceId: data.id };
+} catch (error) {
+  console.error('❌ Error al crear preferencia:', error.response?.data || error);
+  throw new BadRequestException('Error al crear la preferencia en Mercado Pago');
+}
+
   }
 
   // Finalizar orden de suscripción pagada
