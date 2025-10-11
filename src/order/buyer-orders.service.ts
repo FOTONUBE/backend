@@ -122,6 +122,16 @@ export class BuyerOrdersService {
     return this.mapToDto(order);
   }
 
+  async verifyPayment(orderId: string) {
+    const order = await this.orderRepository.findOne({
+      where: { id: orderId },
+    });
+
+    if (!order) throw new NotFoundException('Orden no encontrada');
+
+    return { status: order.status, orderId: order.id };
+  }
+
   async cancelOrder(
     orderId: string,
     buyerId: string,

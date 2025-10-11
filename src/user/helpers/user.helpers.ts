@@ -31,7 +31,7 @@ export const UserHelpers = {
   },
 
   getMaxStorageMb(user: User): number {
-    if (user.role !== 'photographer') return 0;
+    if (user.role !== 'photographer') return 20;
 
     const activeSub = UserHelpers.getActiveSubscription(user);
     const planName = activeSub?.plan?.name ?? 'Free';
@@ -48,8 +48,8 @@ export const UserHelpers = {
   },
 
   canUpload(user: User, mb: number): boolean {
-    if (user.role !== 'photographer') return false;
-    return (user.storageUsedMb ?? 0) + mb <= UserHelpers.getMaxStorageMb(user);
+    const maxStorage = UserHelpers.getMaxStorageMb(user);
+    return (user.storageUsedMb ?? 0) + mb <= maxStorage;
   },
 
   // Límite de fotos por álbum

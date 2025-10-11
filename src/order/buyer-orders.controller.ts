@@ -40,6 +40,12 @@ export class BuyerOrdersController {
     return this.orderService.getOrderById(id, buyerId);
   }
 
+  @UseGuards(AuthGuard)
+  @Get(':id/verify-payment')
+  async verifyPayment(@Param('id') orderId: string) {
+    return this.orderService.verifyPayment(orderId);
+  }
+
   // 🔒 Eliminar una orden pendiente
   @UseGuards(AuthGuard)
   @Delete(':id')

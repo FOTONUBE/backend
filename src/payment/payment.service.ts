@@ -5,12 +5,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import axios from 'axios';
+import { Repository } from 'typeorm';
 
-import { User } from 'src/user/entities/user.entity';
-import { PaymentAccount } from './entities/payment.entity';
 import { UserService } from 'src/user/user.service';
+import { PaymentAccount } from './entities/payment.entity';
 
 @Injectable()
 export class PaymentService {
