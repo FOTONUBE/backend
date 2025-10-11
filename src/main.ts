@@ -16,8 +16,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'http://localhost:3000',
-      'https://next-foto-nube.vercel.app',
+      'https://frontend-two-ruddy-32.vercel.app',
       'https://fotonube.com',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
