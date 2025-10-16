@@ -5,7 +5,7 @@ export class AdminAlbumDto {
   description?: string;
   prices: { size: string; price: number }[];
   priceDigital: number;
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
   eventDate: string;
   photos: { id: string; url: string }[];
 }

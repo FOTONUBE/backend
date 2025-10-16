@@ -17,6 +17,7 @@ import { PaymentService } from 'src/payment/payment.service';
 import axios from 'axios';
 import { MailService } from 'src/mail/mail.service';
 import { ConfigService } from '@nestjs/config';
+import { UserHelpers } from 'src/user/helpers/user.helpers';
 
 @Injectable()
 export class BuyerOrdersService {
@@ -185,7 +186,13 @@ export class BuyerOrdersService {
     }));
 
     const total = order.total;
-    const marketplaceFee = Number((total * 0.1).toFixed(2));
+
+    // 🧠 Acá usamos tu helper para obtener el porcentaje correcto
+    const feePercentage = UserHelpers.getFeePercentage(photographer);
+
+    // 💰 Calculamos la comisión real del marketplace
+    const marketplaceFee = Number(((total * feePercentage) / 100).toFixed(2));
+
     if (marketplaceFee > total) {
       console.error(
         'marketplaceFee is greater than total!',

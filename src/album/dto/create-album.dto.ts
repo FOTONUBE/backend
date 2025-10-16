@@ -52,10 +52,10 @@ export class CreateAlbumDto {
   @Type(() => Number)
   priceDigital: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @Type(() => Number)
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
 
   @IsNotEmpty()
   @IsDateString()

@@ -37,7 +37,7 @@ export class Album {
   priceDigital: number;
 
   @Column('float')
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
 
   @Column({ type: 'date' })
   eventDate: string;

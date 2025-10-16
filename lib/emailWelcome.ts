@@ -25,7 +25,7 @@ export function generatePhotographerWelcomeEmail() {
         Estás suscripto a <strong style="color: #0891b2;">FOTONUBE Free</strong>. ¡Sí! Puedes usar la plataforma de forma <strong style="color: #0891b2;">gratuita</strong>. Recuerda que cuentas con <strong>1GB de espacio</strong> en la nube y puedes crear solo <strong>1 álbum</strong> para comercializar tus fotos.
       </p>
       <p style="font-size: 16px; line-height: 1.6; color: #4b5563; text-align: justify;">
-        Ten presente que FOTONUBE Free cobra, en concepto de comisión por ventas, el <strong>4,99%</strong> del total de cada transacción concretada.
+        Ten presente que FOTONUBE Free cobra, en concepto de comisión por ventas, el <strong>19,99%</strong> del total de cada transacción concretada.
       </p>
 
       <!-- Botón de Crear Álbum -->

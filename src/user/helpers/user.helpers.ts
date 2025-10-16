@@ -8,6 +8,18 @@ export const UserHelpers = {
     return user.subscriptions.find((sub) => sub.endDate === null) ?? null;
   },
 
+  // 🔹 Calcula el porcentaje de comisión (fee)
+  getFeePercentage(user: User): number {
+    if (user.role !== 'photographer') return 0;
+
+    const activeSub = UserHelpers.getActiveSubscription(user);
+    const planName = activeSub?.plan?.name ?? 'Free';
+
+    // Si es "Free" → 19.99%, si es "Pro" → 4.99%
+    if (planName === 'Pro') return 4.99;
+    return 19.99;
+  },
+
   getMaxAlbums(user: User): number {
     if (user.role !== 'photographer') return 0;
 
@@ -15,10 +27,8 @@ export const UserHelpers = {
     const planName = activeSub?.plan?.name ?? 'Free';
 
     switch (planName) {
-      case 'Mensual':
-      case 'Trimestral':
-      case 'Semestral':
-        return 10; // cualquier plan pago
+      case 'Pro':
+        return 10;
       case 'Free':
       default:
         return 1;
@@ -37,9 +47,7 @@ export const UserHelpers = {
     const planName = activeSub?.plan?.name ?? 'Free';
 
     switch (planName) {
-      case 'Mensual':
-      case 'Trimestral':
-      case 'Semestral':
+      case 'Pro':
         return 20 * 1024; // 20 GB
       case 'Free':
       default:
@@ -52,7 +60,6 @@ export const UserHelpers = {
     return (user.storageUsedMb ?? 0) + mb <= maxStorage;
   },
 
-  // Límite de fotos por álbum
   getMaxPhotosPerAlbum(user: User): number {
     if (user.role !== 'photographer') return 0;
 
@@ -60,9 +67,7 @@ export const UserHelpers = {
     const planName = activeSub?.plan?.name ?? 'Free';
 
     switch (planName) {
-      case 'Mensual':
-      case 'Trimestral':
-      case 'Semestral':
+      case 'Pro':
         return 400;
       case 'Free':
       default:

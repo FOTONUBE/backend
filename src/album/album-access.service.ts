@@ -73,7 +73,7 @@ export class AlbumAccessService {
       eventDate: album.eventDate,
       prices: album.prices,
       priceDigital: album.priceDigital,
-      priceSchoolSports: album.priceSchoolSports,
+      priceSchoolSports: album?.priceSchoolSports,
       photos: album.photos.map((photo) => ({
         id: photo.id,
         url: photo.url,

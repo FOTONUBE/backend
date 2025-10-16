@@ -15,7 +15,7 @@ export class AlbumSummaryDto {
   title: string;
   prices: { size: string; price: number }[];
   priceDigital: number;
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
   eventDate: string;
   description: string;
 }

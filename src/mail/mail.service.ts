@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import * as nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 import { generatePasswordResetEmail } from 'lib/emailForgotPassword';
 import { generateNewOrderNotificationEmail } from 'lib/emailNewOrderNotification';
@@ -12,33 +12,30 @@ import {
 
 @Injectable()
 export class MailService {
-  private readonly transporter;
+  private readonly resend: Resend;
   private readonly logger = new Logger(MailService.name);
 
   constructor() {
-    this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST, // c1320274.ferozo.com
-      port: Number(process.env.SMTP_PORT) || 465,
-      secure: true, // SSL
-      auth: {
-        user: process.env.SMTP_USER, // desarrollo@fotonube.com
-        pass: process.env.SMTP_PASS, // dEmo25*Nube
-      },
-      tls: { rejectUnauthorized: false },
-    });
+    this.resend = new Resend(process.env.RESEND_API_KEY);
   }
 
   private async sendMail(to: string, subject: string, html: string) {
     try {
-      const info = await this.transporter.sendMail({
-        from: `"FotoNube" <${process.env.SMTP_USER}>`,
+      const { data, error } = await this.resend.emails.send({
+        from: 'FotoNube <desarrollo@fotonube.com>',
         to,
         subject,
         html,
       });
-      this.logger.log(`✅ Email enviado a ${to}: ${info.messageId}`);
-    } catch (error) {
-      this.logger.error(`❌ Error al enviar correo a ${to}`, error);
+
+      if (error) {
+        this.logger.error(`❌ Error al enviar correo a ${to}`, error);
+        return;
+      }
+
+      this.logger.log(`✅ Email enviado a ${to}: ${data?.id}`);
+    } catch (err) {
+      this.logger.error(`❌ Error inesperado al enviar correo a ${to}`, err);
     }
   }
 
