@@ -1,18 +1,13 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import * as bodyParser from 'body-parser';
 import { AppModule } from './app.module';
+import * as express from 'express';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
-
-  // Middleware para raw body SOLO en webhook
-  app.use(
-    '/api/mercadopago/webhook',
-    bodyParser.raw({ type: 'application/json' }),
-  );
 
   app.enableCors({
     origin: [
@@ -25,7 +20,10 @@ async function bootstrap() {
     credentials: true,
   });
 
-  // Pipes globales siguen funcionando para todas las rutas EXCEPTO webhook
+  // Servir documentación Compodoc
+  app.use('/docs', express.static(join(process.cwd(), 'documentation')));
+
+  // Pipes globales
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -39,5 +37,6 @@ async function bootstrap() {
   const port = process.env.PORT || 3001;
   await app.listen(port, '0.0.0.0');
   console.log(`🚀 Server running on port ${port}`);
+  console.log(`📘 Docs available at: http://localhost:${port}/docs`);
 }
 bootstrap();
