@@ -1,0 +1,1055 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>back-fotonube documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">back-fotonube documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >PhotoService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/photo/photo.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAll" >findAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeAllByAlbum" >removeAllByAlbum</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeById" >removeById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#upload" >upload</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadMultiple" >uploadMultiple</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(photoRepository: <a href="../entitys/Photo.html" target="_self">Repository&lt;Photo&gt;</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, filesService: <a href="../injectables/FilesService.html" target="_self">FilesService</a>, albumService: <a href="../injectables/AlbumService.html" target="_self">AlbumService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/photo/photo.service.ts:18</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>photoRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Photo.html" target="_self" >Repository&lt;Photo&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>filesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FilesService.html" target="_self" >FilesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>albumService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AlbumService.html" target="_self" >AlbumService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAll"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>findAll</b></span>
+                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAll(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">src/photo/photo.service.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeAllByAlbum"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>removeAllByAlbum</b></span>
+                        <a href="#removeAllByAlbum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeAllByAlbum(albumId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="224"
+                                    class="link-to-prism">src/photo/photo.service.ts:224</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>albumId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeById"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>removeById</b></span>
+                        <a href="#removeById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeById(photoId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/photo/photo.service.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>photoId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="upload"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>upload</b></span>
+                        <a href="#upload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>upload(file: Express.Multer.File, albumId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">src/photo/photo.service.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>Express.Multer.File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>albumId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadMultiple"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>uploadMultiple</b></span>
+                        <a href="#uploadMultiple"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadMultiple(files: Express.Multer.File[], albumId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, totalSizeMb?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="89"
+                                    class="link-to-prism">src/photo/photo.service.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>files</td>
+                                            <td>
+                                                        <code>Express.Multer.File[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>albumId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>totalSizeMb</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from &#x27;@nestjs/common&#x27;;
+import { Photo } from &#x27;./entities/photo.entity&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
+import { AlbumService } from &#x27;src/album/album.service&#x27;;
+import { UserService } from &#x27;src/user/user.service&#x27;;
+import { FilesService } from &#x27;src/files/files.service&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { UserHelpers } from &#x27;src/user/helpers/user.helpers&#x27;;
+import { log } from &#x27;console&#x27;;
+
+@Injectable()
+export class PhotoService {
+  constructor(
+    @InjectRepository(Photo)
+    private readonly photoRepository: Repository&lt;Photo&gt;,
+
+    private readonly userService: UserService,
+    private readonly filesService: FilesService,
+
+    @Inject(forwardRef(() &#x3D;&gt; AlbumService))
+    private readonly albumService: AlbumService,
+  ) {}
+
+  // Subir una foto
+  async upload(file: Express.Multer.File, albumId: string, userId: string) {
+    if (file.mimetype !&#x3D;&#x3D; &#x27;image/webp&#x27;) {
+      throw new BadRequestException(
+        &#x27;Solo se permiten archivos en formato .webp&#x27;,
+      );
+    }
+
+    const photographer &#x3D; await this.userService.findById(userId);
+    if (!photographer || photographer.role !&#x3D;&#x3D; &#x27;photographer&#x27;) {
+      throw new NotFoundException(&#x27;Fotógrafo no encontrado&#x27;);
+    }
+
+    const album &#x3D; await this.albumService.findOne(albumId, userId);
+    if (!album) throw new NotFoundException(&#x27;Álbum no encontrado&#x27;);
+
+    // Validar cantidad de fotos por álbum
+    const maxPhotos &#x3D; UserHelpers.getMaxPhotosPerAlbum(photographer);
+    if (album.photosCount + 1 &gt; maxPhotos) {
+      throw new BadRequestException(
+        &#x60;No puedes subir más de ${maxPhotos} fotos a este álbum&#x60;,
+      );
+    }
+    // Subir a Cloudinary (FilesService ya valida tamaño y almacenamiento)
+    const { url, public_id, sizeMb, urlThumbnail, urlWeb } &#x3D;
+      await this.filesService.uploadImage(file, userId);
+
+    // Guardar la foto en la DB
+    const photo &#x3D; this.photoRepository.create({
+      url,
+      publicId: public_id,
+      sizeMb,
+      album,
+      urlWeb,
+      urlThumbnail,
+    });
+
+    const savedPhoto &#x3D; await this.photoRepository.save(photo);
+
+    // Actualizar almacenamiento usado del fotógrafo
+    const newStorage &#x3D; (photographer.storageUsedMb ?? 0) + sizeMb;
+    await this.userService.update(userId, {
+      storageUsedMb: parseFloat(newStorage.toFixed(2)),
+    });
+
+    // Incrementar contador de fotos en el álbum de manera segura
+    await this.albumService.incrementPhotosCount(album.id, 1);
+
+    return {
+      id: savedPhoto.id,
+      url: savedPhoto.url,
+      publicId: savedPhoto.publicId,
+      sizeMb: savedPhoto.sizeMb,
+      urlWeb: savedPhoto.urlWeb,
+      urlThumbnail: savedPhoto.urlThumbnail,
+    };
+  }
+
+  // Subir múltiples fotos
+  async uploadMultiple(
+    files: Express.Multer.File[],
+    albumId: string,
+    userId: string,
+    totalSizeMb?: number, // recibido desde el frontend
+  ) {
+    if (!files || files.length &#x3D;&#x3D;&#x3D; 0)
+      throw new BadRequestException(&#x27;No se enviaron archivos&#x27;);
+
+    files.forEach((file) &#x3D;&gt; {
+      if (file.mimetype !&#x3D;&#x3D; &#x27;image/webp&#x27;) {
+        throw new BadRequestException(
+          &#x27;Solo se permiten archivos en formato .webp&#x27;,
+        );
+      }
+    });
+
+    const photographer &#x3D; await this.userService.findById(userId);
+    if (!photographer || photographer.role !&#x3D;&#x3D; &#x27;photographer&#x27;)
+      throw new NotFoundException(&#x27;Fotógrafo no encontrado&#x27;);
+
+    const album &#x3D; await this.albumService.findOne(albumId, userId);
+    if (!album) throw new NotFoundException(&#x27;Álbum no encontrado&#x27;);
+
+    // Validar límite de fotos por álbum
+    const maxPhotos &#x3D; UserHelpers.getMaxPhotosPerAlbum(photographer);
+    if (album.photosCount + files.length &gt; maxPhotos) {
+      throw new BadRequestException(
+        &#x60;No puedes subir más de ${maxPhotos} fotos a este álbum&#x60;,
+      );
+    }
+
+    // Validar almacenamiento total usando totalSizeMb enviado
+    const totalMb &#x3D;
+      totalSizeMb ?? files.reduce((sum, f) &#x3D;&gt; sum + f.size / (1024 * 1024), 0);
+    const maxStorage &#x3D; UserHelpers.getMaxStorageMb(photographer);
+    if ((photographer.storageUsedMb ?? 0) + totalMb &gt; maxStorage) {
+      throw new BadRequestException(
+        &#x60;No tienes suficiente espacio. Límite máximo: ${maxStorage} MB&#x60;,
+      );
+    }
+
+    // Subir todas las fotos en paralelo (FilesService validará tamaño individual)
+    const uploadedToCloud &#x3D; await Promise.all(
+      files.map((file) &#x3D;&gt; this.filesService.uploadImage(file, userId)),
+    );
+
+    // Crear entidades en memoria
+    const photosToSave &#x3D; uploadedToCloud.map((p) &#x3D;&gt;
+      this.photoRepository.create({
+        url: p.url,
+        publicId: p.public_id,
+        sizeMb: p.sizeMb,
+        album,
+        urlWeb: p.urlWeb,
+        urlThumbnail: p.urlThumbnail,
+      }),
+    );
+
+    // Guardar todas las fotos en DB
+    const savedPhotos &#x3D; await this.photoRepository.save(photosToSave);
+
+    // 🔹 Actualizar almacenamiento del fotógrafo sumando lo enviado en la request
+    /*     console.log(&#x27;--- Detalles de almacenamiento ---&#x27;);
+    console.log(&#x27;Usuario: &#x27;, photographer);
+
+    console.log(&#x27;Almacenamiento actual:&#x27;, photographer.storageUsedMb);
+    console.log(&#x27;Tamaño total de subida:&#x27;, totalMb); */
+
+    const newStorage &#x3D; photographer.storageUsedMb + totalMb;
+
+    await this.userService.update(userId, {
+      storageUsedMb: parseFloat(newStorage),
+    });
+
+    // Incrementar contador de fotos en álbum
+    await this.albumService.incrementPhotosCount(album.id, savedPhotos.length);
+
+    return savedPhotos.map((p) &#x3D;&gt; ({
+      id: p.id,
+      url: p.url,
+      publicId: p.publicId,
+      sizeMb: p.sizeMb,
+      urlWeb: p.urlWeb,
+      urlThumbnail: p.urlThumbnail,
+    }));
+  }
+
+  // Listar fotos
+  async findAll(userId: string) {
+    const photographer &#x3D; await this.userService.findById(userId);
+    if (!photographer || photographer.role !&#x3D;&#x3D; &#x27;photographer&#x27;) {
+      throw new NotFoundException(&#x27;Fotógrafo no encontrado&#x27;);
+    }
+
+    return this.photoRepository.find({
+      where: { album: { photographer: { id: userId } } },
+      relations: [&#x27;album&#x27;],
+    });
+  }
+
+  // Eliminar una foto
+  async removeById(photoId: string, userId: string) {
+    const photo &#x3D; await this.photoRepository.findOne({
+      where: { id: photoId, album: { photographer: { id: userId } } },
+      relations: [&#x27;album&#x27;, &#x27;album.photographer&#x27;],
+    });
+
+    if (!photo) throw new NotFoundException(&#x27;Imagen no encontrada&#x27;);
+
+    const photographer &#x3D; photo.album.photographer;
+
+    try {
+      await this.filesService.deleteImage(photo.publicId);
+      await this.photoRepository.delete(photo.id);
+
+      const newStorage &#x3D; Math.max(
+        0,
+        (photographer.storageUsedMb ?? 0) - (photo.sizeMb ?? 0),
+      );
+      await this.userService.update(userId, {
+        storageUsedMb: parseFloat(newStorage.toFixed(2)),
+      });
+
+      // Reducir contador de fotos
+      await this.albumService.incrementPhotosCount(photo.album.id, -1);
+
+      return { message: &#x27;Imagen eliminada correctamente&#x27; };
+    } catch (err) {
+      console.error(&#x27;Error eliminando la foto:&#x27;, err);
+      throw new BadRequestException(&#x27;No se pudo eliminar la foto&#x27;);
+    }
+  }
+
+  // Eliminar todas las fotos de un álbum
+  async removeAllByAlbum(albumId: string, userId: string) {
+    const album &#x3D; await this.albumService.findOne(albumId, userId);
+    if (!album) throw new NotFoundException(&#x27;Álbum no encontrado&#x27;);
+
+    const photographer &#x3D; album.photographer;
+    if (!photographer) throw new NotFoundException(&#x27;Fotógrafo no encontrado&#x27;);
+
+    const photos &#x3D; await this.photoRepository.find({
+      where: { album: { id: albumId } },
+    });
+
+    if (photos.length &#x3D;&#x3D;&#x3D; 0) {
+      return { message: &#x27;No hay fotos para eliminar&#x27; };
+    }
+
+    const totalSize &#x3D; photos.reduce((sum, p) &#x3D;&gt; sum + (p.sizeMb ?? 0), 0);
+
+    await this.userService.update(userId, {
+      storageUsedMb: Math.max(0, (photographer.storageUsedMb ?? 0) - totalSize),
+    });
+
+    await Promise.all(
+      photos.map((p) &#x3D;&gt; this.filesService.deleteImage(p.publicId)),
+    );
+    await this.photoRepository.delete(photos.map((p) &#x3D;&gt; p.id));
+
+    // Resetear contador de fotos a 0
+    await this.albumService.incrementPhotosCount(albumId, -album.photosCount);
+
+    return { message: &#x27;Todas las fotos eliminadas correctamente&#x27; };
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'PhotoService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

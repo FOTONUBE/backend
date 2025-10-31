@@ -1,0 +1,1405 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>back-fotonube documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">back-fotonube documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >BuyerOrdersService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/order/buyer-orders.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#mercadoPagoProviderUserId" >mercadoPagoProviderUserId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#cancelOrder" >cancelOrder</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createOrder" >createOrder</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createPaymentPreference" >createPaymentPreference</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getOrderById" >getOrderById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getOrdersByBuyer" >getOrdersByBuyer</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#mapToDto" >mapToDto</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateOrderStatus" >updateOrderStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#verifyPayment" >verifyPayment</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(userRepository: <a href="../entitys/User.html" target="_self">Repository&lt;User&gt;</a>, albumRepository: <a href="../classes/Album.html" target="_self">Repository&lt;Album&gt;</a>, photoRepository: <a href="../entitys/Photo.html" target="_self">Repository&lt;Photo&gt;</a>, orderRepository: <a href="../entitys/Order.html" target="_self">Repository&lt;Order&gt;</a>, paymentService: <a href="../injectables/PaymentService.html" target="_self">PaymentService</a>, mailService: <a href="../injectables/MailService.html" target="_self">MailService</a>, configService: ConfigService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/order/buyer-orders.service.ts:24</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>userRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/User.html" target="_self" >Repository&lt;User&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>albumRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/Album.html" target="_self" >Repository&lt;Album&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>photoRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Photo.html" target="_self" >Repository&lt;Photo&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>orderRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Order.html" target="_self" >Repository&lt;Order&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>paymentService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PaymentService.html" target="_self" >PaymentService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>mailService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MailService.html" target="_self" >MailService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ConfigService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelOrder"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>cancelOrder</b></span>
+                        <a href="#cancelOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>cancelOrder(orderId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, buyerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="136"
+                                    class="link-to-prism">src/order/buyer-orders.service.ts:136</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>orderId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>buyerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createOrder"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createOrder</b></span>
+                        <a href="#createOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createOrder(dto: <a href="../classes/CreateOrderDto.html" target="_self">CreateOrderDto</a>, buyerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/order/buyer-orders.service.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>dto</td>
+                                            <td>
+                                                            <code><a href="../classes/CreateOrderDto.html" target="_self" >CreateOrderDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>buyerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/OrderResponseDto.html" target="_self" >Promise&lt;OrderResponseDto&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createPaymentPreference"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createPaymentPreference</b></span>
+                        <a href="#createPaymentPreference"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createPaymentPreference(orderId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/order/buyer-orders.service.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>orderId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOrderById"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getOrderById</b></span>
+                        <a href="#getOrderById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOrderById(orderId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, buyerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="110"
+                                    class="link-to-prism">src/order/buyer-orders.service.ts:110</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>orderId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>buyerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/OrderResponseDto.html" target="_self" >Promise&lt;OrderResponseDto&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOrdersByBuyer"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getOrdersByBuyer</b></span>
+                        <a href="#getOrdersByBuyer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOrdersByBuyer(buyerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="100"
+                                    class="link-to-prism">src/order/buyer-orders.service.ts:100</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>buyerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/OrderResponseDto.html" target="_self" >Promise&lt;OrderResponseDto[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mapToDto"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>mapToDto</b></span>
+                        <a href="#mapToDto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>mapToDto(order: <a href="../entitys/Order.html" target="_self">Order</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="306"
+                                    class="link-to-prism">src/order/buyer-orders.service.ts:306</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>order</td>
+                                            <td>
+                                                            <code><a href="../entitys/Order.html" target="_self" >Order</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/OrderResponseDto.html" target="_self" >OrderResponseDto</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateOrderStatus"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateOrderStatus</b></span>
+                        <a href="#updateOrderStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateOrderStatus(orderId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, newStatus: <a href="../undefineds/OrderStatus.html" target="_self">OrderStatus</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="256"
+                                    class="link-to-prism">src/order/buyer-orders.service.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>orderId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>newStatus</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#OrderStatus" target="_self" >OrderStatus</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verifyPayment"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>verifyPayment</b></span>
+                        <a href="#verifyPayment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>verifyPayment(orderId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/order/buyer-orders.service.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>orderId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mercadoPagoProviderUserId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>mercadoPagoProviderUserId</b></span>
+                        <a href="#mercadoPagoProviderUserId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/order/buyer-orders.service.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+  BadRequestException,
+} from &#x27;@nestjs/common&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
+import { Order, OrderStatus } from &#x27;./entities/order.entity&#x27;;
+import { OrderResponseDto } from &#x27;./dto/order-buyer.dto&#x27;;
+import { User } from &#x27;src/user/entities/user.entity&#x27;;
+import { CreateOrderDto } from &#x27;./dto/create-order.dto&#x27;;
+import { OrderItem } from &#x27;./entities/order-item.entity&#x27;;
+import { Album } from &#x27;src/album/entities/album.entity&#x27;;
+import { Photo } from &#x27;src/photo/entities/photo.entity&#x27;;
+import { PaymentService } from &#x27;src/payment/payment.service&#x27;;
+import axios from &#x27;axios&#x27;;
+import { MailService } from &#x27;src/mail/mail.service&#x27;;
+import { ConfigService } from &#x27;@nestjs/config&#x27;;
+import { UserHelpers } from &#x27;src/user/helpers/user.helpers&#x27;;
+
+@Injectable()
+export class BuyerOrdersService {
+  private readonly mercadoPagoProviderUserId: number;
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository&lt;User&gt;,
+
+    @InjectRepository(Album)
+    private readonly albumRepository: Repository&lt;Album&gt;,
+
+    @InjectRepository(Photo)
+    private readonly photoRepository: Repository&lt;Photo&gt;,
+
+    @InjectRepository(Order)
+    private readonly orderRepository: Repository&lt;Order&gt;,
+
+    private readonly paymentService: PaymentService,
+    private readonly mailService: MailService,
+    private readonly configService: ConfigService,
+  ) {
+    this.mercadoPagoProviderUserId &#x3D; Number(
+      this.configService.get&lt;string&gt;(&#x27;MERCADOPAGO_PROVIDER_USER_ID&#x27;),
+    );
+  }
+
+  async createOrder(
+    dto: CreateOrderDto,
+    buyerId: string,
+  ): Promise&lt;OrderResponseDto&gt; {
+    const buyer &#x3D; await this.userRepository.findOneByOrFail({ id: buyerId });
+    const album &#x3D; await this.albumRepository.findOneByOrFail({
+      id: dto.albumId,
+    });
+
+    // Verificar fotos
+    const photoIds &#x3D; dto.items.map((i) &#x3D;&gt; i.photoId);
+    const photos &#x3D; await this.photoRepository
+      .createQueryBuilder(&#x27;photo&#x27;)
+      .where(&#x27;photo.id IN (:...ids)&#x27;, { ids: photoIds })
+      .andWhere(&#x27;photo.albumId &#x3D; :albumId&#x27;, { albumId: dto.albumId })
+      .getMany();
+
+    if (photos.length !&#x3D;&#x3D; dto.items.length) {
+      throw new BadRequestException(
+        &#x27;Una o más fotos no pertenecen a este álbum&#x27;,
+      );
+    }
+
+    // Crear items
+    const orderItems &#x3D; dto.items.map((itemDto) &#x3D;&gt; {
+      const photo &#x3D; photos.find((p) &#x3D;&gt; p.id &#x3D;&#x3D;&#x3D; itemDto.photoId)!;
+      return this.orderRepository.manager.create(OrderItem, {
+        photoUrl: photo.url,
+        photoWebUrl: photo.urlWeb,
+        photoThumbnailUrl: photo.urlThumbnail,
+        originalPhotoId: photo.id, // opcional
+        size: itemDto.size,
+        quantity: itemDto.quantity,
+        unitPrice: itemDto.unitPrice,
+        subtotal: itemDto.unitPrice * itemDto.quantity,
+      });
+    });
+
+    const total &#x3D; orderItems.reduce((sum, i) &#x3D;&gt; sum + Number(i.subtotal), 0);
+
+    const order &#x3D; this.orderRepository.create({
+      buyer,
+      album,
+      items: orderItems,
+      total,
+      status: &#x27;pending&#x27;,
+    });
+
+    const savedOrder &#x3D; await this.orderRepository.save(order);
+
+    return this.mapToDto(savedOrder);
+  }
+
+  async getOrdersByBuyer(buyerId: string): Promise&lt;OrderResponseDto[]&gt; {
+    const orders &#x3D; await this.orderRepository.find({
+      where: { buyer: { id: buyerId } },
+      relations: [&#x27;items&#x27;, &#x27;album&#x27;],
+      order: { createdAt: &#x27;DESC&#x27; },
+    });
+
+    return orders.map(this.mapToDto);
+  }
+
+  async getOrderById(
+    orderId: string,
+    buyerId: string,
+  ): Promise&lt;OrderResponseDto&gt; {
+    const order &#x3D; await this.orderRepository.findOne({
+      where: { id: orderId },
+      relations: [&#x27;items&#x27;, &#x27;album&#x27;, &#x27;buyer&#x27;],
+    });
+
+    if (!order) throw new NotFoundException(&#x27;Orden no encontrada&#x27;);
+    if (order.buyer.id !&#x3D;&#x3D; buyerId)
+      throw new ForbiddenException(&#x27;No tienes acceso a esta orden&#x27;);
+
+    return this.mapToDto(order);
+  }
+
+  async verifyPayment(orderId: string) {
+    const order &#x3D; await this.orderRepository.findOne({
+      where: { id: orderId },
+    });
+
+    if (!order) throw new NotFoundException(&#x27;Orden no encontrada&#x27;);
+
+    return { status: order.status, orderId: order.id };
+  }
+
+  async cancelOrder(
+    orderId: string,
+    buyerId: string,
+  ): Promise&lt;{ success: boolean; message: string }&gt; {
+    const order &#x3D; await this.orderRepository.findOne({
+      where: { id: orderId },
+      relations: [&#x27;buyer&#x27;],
+    });
+
+    if (!order) throw new NotFoundException(&#x27;Orden no encontrada&#x27;);
+    if (order.buyer.id !&#x3D;&#x3D; buyerId)
+      throw new ForbiddenException(&#x27;No tienes acceso a esta orden&#x27;);
+
+    if (order.status !&#x3D;&#x3D; &#x27;pending&#x27;) {
+      throw new BadRequestException(
+        &#x27;Solo se pueden cancelar órdenes pendientes&#x27;,
+      );
+    }
+
+    await this.orderRepository.remove(order);
+
+    return { success: true, message: &#x27;Orden cancelada con éxito&#x27; };
+  }
+
+  async createPaymentPreference(orderId: string) {
+    const order &#x3D; await this.orderRepository.findOne({
+      where: { id: orderId },
+      relations: [&#x27;album&#x27;, &#x27;album.photographer&#x27;, &#x27;items&#x27;],
+    });
+    if (!order) throw new NotFoundException(&#x27;Orden no encontrada&#x27;);
+
+    const photographer &#x3D; order.album.photographer;
+    const photographerAccount &#x3D; await this.paymentService.getAccount(
+      photographer.id,
+    );
+    if (
+      !photographerAccount.accessToken ||
+      !photographerAccount.providerUserId
+    ) {
+      throw new BadRequestException(
+        &#x27;El fotógrafo no tiene cuenta MercadoPago vinculada&#x27;,
+      );
+    }
+
+    const items &#x3D; order.items.map((i) &#x3D;&gt; ({
+      title: &#x60;Foto - ${i.size}&#x60;,
+      picture_url: i.photoUrl,
+      quantity: i.quantity,
+      unit_price: Number(i.unitPrice),
+      currency_id: &#x27;ARS&#x27;,
+    }));
+
+    const total &#x3D; order.total;
+
+    // 🧠 Acá usamos tu helper para obtener el porcentaje correcto
+    const feePercentage &#x3D; UserHelpers.getFeePercentage(photographer);
+
+    // 💰 Calculamos la comisión real del marketplace
+    const marketplaceFee &#x3D; Number(((total * feePercentage) / 100).toFixed(2));
+
+    if (marketplaceFee &gt; total) {
+      console.error(
+        &#x27;marketplaceFee is greater than total!&#x27;,
+        marketplaceFee,
+        total,
+      );
+      throw new BadRequestException(&#x27;Comisión del marketplace excesiva&#x27;);
+    }
+
+    const marketplaceProviderUserId &#x3D; this.mercadoPagoProviderUserId;
+
+    const preferencePayload &#x3D; {
+      items,
+      payer: { email: order.buyer.email },
+      back_urls: {
+        success: &#x60;${process.env.FRONTEND_URL}/payment/success&#x60;,
+        failure: &#x60;${process.env.FRONTEND_URL}/payment/failure&#x60;,
+      },
+      marketplace_fee: marketplaceFee,
+      payment_methods: {
+        excluded_payment_types: [{ id: &#x27;ticket&#x27; }, { id: &#x27;atm&#x27; }],
+      },
+      sponsor_id: marketplaceProviderUserId,
+      notification_url: &#x60;${process.env.BACKEND_URL}/mercadopago/webhook&#x60;,
+      external_reference: &#x60;buyerOrder-${order.id}&#x60;,
+    };
+
+    console.log(
+      &#x27;⚙ Preference Payload:&#x27;,
+      JSON.stringify(preferencePayload, null, 2),
+    );
+    console.log(
+      &#x27;📦 Access Token del vendedor:&#x27;,
+      photographerAccount.accessToken,
+    );
+
+    try {
+      const { data } &#x3D; await axios.post(
+        &#x27;https://api.mercadopago.com/checkout/preferences&#x27;,
+        preferencePayload,
+        {
+          headers: {
+            Authorization: &#x60;Bearer ${photographerAccount.accessToken}&#x60;,
+            &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+          },
+        },
+      );
+
+      // console.log(&#x27;✅ Preferencia creada:&#x27;, data);
+
+      return { init_point: data.init_point, preferenceId: data.id };
+    } catch (err: any) {
+      console.error(
+        &#x27;❌ Error al crear preferencia:&#x27;,
+        err.response?.data || err.message,
+      );
+      throw new BadRequestException(&#x27;Error al crear preferencia MercadoPago&#x27;);
+    }
+  }
+
+  async updateOrderStatus(
+    orderId: string,
+    newStatus: OrderStatus,
+  ): Promise&lt;void&gt; {
+    let cleanOrderId &#x3D; orderId;
+    if (orderId.startsWith(&#x27;buyerOrder-&#x27;)) {
+      cleanOrderId &#x3D; orderId.replace(&#x27;buyerOrder-&#x27;, &#x27;&#x27;);
+    }
+
+    const order &#x3D; await this.orderRepository.findOne({
+      where: { id: cleanOrderId },
+      relations: [&#x27;buyer&#x27;, &#x27;items&#x27;, &#x27;album&#x27;, &#x27;album.photographer&#x27;],
+    });
+
+    if (!order) {
+      console.error(&#x60;Order with ID ${orderId} not found.&#x60;);
+      return;
+    }
+
+    order.status &#x3D; newStatus;
+
+    // Persistir los cambios en la base de datos
+    await this.orderRepository.save(order);
+
+    console.log(&#x60;Order ${orderId} status updated to: ${newStatus}&#x60;);
+
+    // 👇 Si el pago fue aprobado, mandar mail
+    if (newStatus &#x3D;&#x3D;&#x3D; &#x27;approved&#x27;) {
+      const total &#x3D; Number(order.total).toFixed(2);
+      const itemCount &#x3D; order.items.length;
+
+      // 📩 Mail al comprador (confirmación de compra)
+      await this.mailService.sendOrderPaymentEmail(
+        order.buyer.email,
+        order.id,
+        total,
+        itemCount,
+      );
+
+      // 📩 Mail al vendedor (nuevo pedido confirmado)
+      await this.mailService.sendNewOrderNotification(
+        order.album.photographer.email,
+        order.id,
+        total,
+        itemCount,
+        order.buyer.name,
+      );
+    }
+  }
+  // Mapeo privado a DTO
+  private mapToDto(order: Order): OrderResponseDto {
+    return {
+      id: order.id,
+      album: {
+        id: order.album.id,
+        title: order.album.title,
+        prices: order.album.prices,
+        priceDigital: order.album.priceDigital,
+        priceSchoolSports: order.album.priceSchoolSports,
+        eventDate: order.album.eventDate,
+        description: order.album.description || &#x27;&#x27;,
+      },
+      items: order.items.map((item) &#x3D;&gt; ({
+        id: item.id,
+        size: item.size,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+        subtotal: item.subtotal,
+        photo: {
+          id: item.originalPhotoId,
+          url: item.photoUrl,
+          webUrl: item.photoWebUrl,
+          thumbnailUrl: item.photoThumbnailUrl,
+        },
+      })),
+      total: order.total,
+      status: order.status,
+      createdAt: order.createdAt,
+    };
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'BuyerOrdersService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
